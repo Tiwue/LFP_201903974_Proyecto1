@@ -15,13 +15,14 @@ nombre=""
 categorias=[]
 menu=None
 identificadores=[]
+limite=100000
 
 def getDatos(linea):
     global lineasMenu
     lineasMenu=linea
 
 def analisis():
-    global lineasMenu, nombre, errores,tokens,platillos,reservada,nombre,categorias,menu,identificadores
+    global lineasMenu, nombre, errores,tokens,platillos,reservada,nombre,categorias,menu,identificadores,limite
     numero_token=0
     numero_error=0
     fila=1
@@ -36,6 +37,13 @@ def analisis():
     estado=0
     lexema=""
     columna=1
+
+    print("Desea establecer un limite de precios?\n1.Si\n2.No")
+    respuesta=input()
+
+    if respuesta==str(1):
+        limite=input("Ingrese el valor:")    
+
 
     for caracter in lineasMenu:
             columna +=1
@@ -346,8 +354,9 @@ def generarMenuHTML(menu):
     for element in menu.categorias:
         mitad=mitad+"<p style=\"margin-left: 120px;\"><strong><span style=\"font-size:28px;\">"+str(element)+":</span></strong></p>"
         for subelement in menu.platillos:
-            if str(subelement.categoria)==str(element):
-                mitad=mitad+"<p style=\"margin-left: 160px;\">"+str(subelement.nombre)+"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Q "+str(subelement.precio)+"<br />"+str(subelement.descripcion)+"</p>"
+            if float(subelement.precio) <= float(limite):
+                if str(subelement.categoria)==str(element):
+                    mitad=mitad+"<p style=\"margin-left: 160px;\">"+str(subelement.nombre)+"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Q "+str(subelement.precio)+"<br />"+str(subelement.descripcion)+"</p>"
     fin="</div></body> </html>"
     cadena=inicio+mitad+fin
     archivo=open('Menu.html','w',encoding="utf-8")
@@ -395,6 +404,7 @@ def limpiar():
     categorias.clear()
     menu=None
     identificadores.clear()
+    limite=100000
 
 def generarArbol():
     global menu
