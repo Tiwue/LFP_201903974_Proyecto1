@@ -41,7 +41,7 @@ def analisis():
             columna +=1
             if caracter =="\n":
                 fila+=1
-                columna=1
+                columna=0
                 estado=0
 
             elif estado==0:
@@ -341,14 +341,14 @@ def analisis():
         generarTokensHTML(tokens)  
 
 def generarMenuHTML(menu):
-    inicio="<!doctype html><html><head> <title>Menu</title> </head><body><h1 style=\"text-align: center;\"><span style=\"font-size:48px;\"><span style=\"color:#008000;\">"+str(menu.restaurante)+"</span></span></h1><hr />"
+    inicio="<!doctype html><html><head> <title>Menu</title> </head><body style=\"background-image: url(https://www.wallpapertip.com/wmimgs/50-503868_462280-title-man-made-bar-wallpaper-fancy-restaurant.jpg)\"><h1 style=\"text-align: center;\"><span style=\"font-size:48px;\"><span style=\"color:#ffffff; background-color: rgba(0, 0, 0, 0.5);\">"+str(menu.restaurante)+"</span></span></h1><hr /><div style=\"background-color: rgba(255, 255, 255, 0.8);margin-left: 500px; margin-right: 500px;padding-top: 20px; padding-bottom: 50px;border-radius: 8px;\">"
     mitad=""
     for element in menu.categorias:
-        mitad=mitad+"<p style=\"margin-left: 620px;\"><strong><span style=\"font-size:28px;\">"+str(element)+":</span></strong></p>"
+        mitad=mitad+"<p style=\"margin-left: 120px;\"><strong><span style=\"font-size:28px;\">"+str(element)+":</span></strong></p>"
         for subelement in menu.platillos:
             if str(subelement.categoria)==str(element):
-                mitad=mitad+"<p style=\"margin-left: 660px;\">"+str(subelement.nombre)+"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Q "+str(subelement.precio)+"<br />"+str(subelement.descripcion)+"</p>"
-    fin="</body> </html>"
+                mitad=mitad+"<p style=\"margin-left: 160px;\">"+str(subelement.nombre)+"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Q "+str(subelement.precio)+"<br />"+str(subelement.descripcion)+"</p>"
+    fin="</div></body> </html>"
     cadena=inicio+mitad+fin
     archivo=open('Menu.html','w',encoding="utf-8")
     archivo.write(cadena)
